@@ -11,3 +11,9 @@
 ### Background research
 
 https://stackoverflow.com/questions/401847/circle-rectangle-collision-detection-intersection
+
+### Drawbot Installation
+
+`pip3 install -U defcon`
+
+`pip3 install -U PyObjC`
