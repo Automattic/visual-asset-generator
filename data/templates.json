@@ -1,0 +1,50 @@
+[
+  {
+    "name": "300_250",
+    "dimensions": {
+      "width": 300,
+      "height": 250
+    },
+    "spotlight": {
+      "d": 140,
+      "x": 220,
+      "y": 56
+    },
+    "logo": {
+      "x": 26,
+      "y": 26
+    }
+  },
+  {
+    "name": "300_600",
+    "dimensions": {
+      "width": 300,
+      "height": 600
+    },
+    "spotlight": {
+      "d": 150,
+      "x": 200,
+      "y": 136
+    },
+    "logo": {
+      "x": -17,
+      "y": 104
+    }
+  },
+  {
+    "name": "970_250",
+    "dimensions": {
+      "width": 970,
+      "height": 250
+    },
+    "spotlight": {
+      "d": 210,
+      "x": 800,
+      "y": 70
+    },
+    "logo": {
+      "x": 500,
+      "y": 20
+    }
+  }
+]
