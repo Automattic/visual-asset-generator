@@ -1,14 +1,23 @@
-import numpy as np
-import cv2
-import json
-import drawBot
-import sys
-from argparse import ArgumentParser
-from random import randint
+from roundedRect import roundedRect
 
 class Spotlight:
     def __init__(self, db, face, template):
+        self.noto = db.installFont('/Users/jeff-ong/Library/Fonts/NotoSans-Regular.ttf')
         self.db = db
+        sf = 1
+        if (template['name'].find('@2x') != -1):
+            sf = 2
+        template['spotlight']['d'] *= sf
+        template['spotlight']['x'] *= sf
+        template['spotlight']['y'] *= sf
+        template['dimensions']['width'] *= sf
+        template['dimensions']['height'] *= sf
+        template['logo']['x'] *= sf
+        template['logo']['y'] *= sf
+
+        self.button = { 'fontSize': 12 * sf, 'width': 124 * sf, 'height': 40 * sf, 'borderRadius': 3 * sf }
+        self.cta = 'Start for free'
+        self.resolution = sf
         self.width = template['dimensions']['width']
         self.height = template['dimensions']['height']
         self.spotlight = template['spotlight']
@@ -34,15 +43,31 @@ class Spotlight:
 
     def renderFrame(self):
         frame = self.db.ImageObject('assets/{}.png'.format(self.frame))
+        frame_size = self.db.imageSize(frame)[0]
+        sf = self.width / frame_size
+        frame.lanczosScaleTransform(sf)
         # mask = self.db.ImageObject('assets/mask_{}.png'.format(self.mask))
         # frame.blendWithMask(backgroundImage=None, maskImage=mask)
         self.db.blendMode('normal')
-        self.db.image(frame, (0,0), .9)
+        self.db.image(frame, (0,0), .90)
+
+    def renderButton(self):
+        self.db.fill(213/255,44/255,130/255) # product pink
+        buttonMargin = self.width * .1
+        if (self.height < self.width):
+            buttonMargin = self.height * .1
+        buttonY = self.height - buttonMargin - self.button['height']
+        buttonX = buttonMargin 
+        roundedRect(self.db, buttonX, buttonY, self.button['width'], self.button['height'], self.button['borderRadius'])
+        self.db.font('Noto Sans Bold')
+        self.db.fontSize(self.button['fontSize'])
+        self.db.fill(1) # product pink
+        self.db.textBox(self.cta, (buttonX, buttonY - self.button['height'] / 4, self.button['width'], self.button['height']), align="center")
 
     def renderPortrait(self, magic, shift):
         self.db.fill(1,1,1,1)
         self.db.rect(0,0,self.width, self.height)
-        self.spotlight['x'] = self.width * shift
+        # self.spotlight['x'] = self.width * shift
 
         im = self.db.ImageObject(self.img['path'])
         im.photoEffectMono()
@@ -50,19 +75,13 @@ class Spotlight:
         # im.blendWithMask(backgroundImage=None, maskImage=mask)
 
         #scale the portrait to fit the spotlight
-        # print(self.face)
-        # print(self.img)
         sf = self.spotlight['d'] / (self.face['w'] / self.img['w'] * self.db.imageSize(im)[0]) * magic 
-        # print(sf)
         im.lanczosScaleTransform(sf)
-        # print(self.db.imageSize(im))
 
         # shift the image placement by the difference between where the face starts and where the spotlight is located
         im_x = self.spotlight['x'] - round(self.face['x'] / self.img['w'] * self.db.imageSize(im)[0]) # this line of code took me four hours
         im_y = self.spotlight['y'] - ( self.img['h'] - self.face['h'] - self.face['y'] ) / self.img['h'] * self.db.imageSize(im)[1] # this line of code took me two hours
-        # print(im_x, im_y)
         self.db.image(im, (im_x, im_y))
-        # self.db.oval(self.spotlight['x'], self.spotlight['y'], 10, 10)
 
     def render(self, magic, shift):
         self.db.newDrawing()
@@ -70,58 +89,10 @@ class Spotlight:
         self.renderPortrait(magic, shift)
         self.renderFrame()
         self.renderLogo()
+        self.renderButton()
 
     def save(self, fp):
-        print(fp)
         self.db.saveImage(fp)
         
     def end(self):
         self.db.endDrawing()
-
-
-if __name__ == "__main__":
-    parser = ArgumentParser(description='drawbot asset generator')
-    parser.add_argument('--format', required=True, type=str)
-    args = parser.parse_args()
-
-    RECOLETA = drawBot.installFont('/Users/jeff-ong/Library/Fonts/Latinotype - Recoleta Regular.otf')
-    MAGIC = [ .3, .4, .5, .6 ]
-    SHIFT = [ .6, .625, .65 ]
-
-    with open('data/faces.json', 'r') as f:
-        faces = json.load(f)
-        f.close()
-
-    with open('data/templates.json', 'r') as f:
-        templates = json.load(f)
-        f.close()
-
-    for t in templates:
-        if t['name'] == args.format:
-            template = t
-
-    face = faces[randint(0,len(faces) - 1)]
-    ad = Spotlight(drawBot, face, template)
-    for magic_number in MAGIC:
-        for s in SHIFT:
-            ad.render(magic_number, s)
-            ad.save("outputs/renders/{}_{}_{}_{}.png".format(templates[0]['name'], face['path'].split('-')[1].split('.')[0], magic_number,s))
-            ad.end()
-    print('DONE')
-    print('\n')
-
-# DIMENSIONS = {
-#   'width': 1080,
-#   'height': 1080
-# }
-# SPOTLIGHT = {
-#   'x': 700,
-#   'y': 420, # 44h
-#   'd': 400
-#   # 'y': d['height'] * 0.3,
-#   # 'd': d['width'] * 0.3636
-# }
-# LOGO = {
-#   'x': 88,
-#   'y': 338 
-# }
