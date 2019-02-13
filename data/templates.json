@@ -13,8 +13,17 @@
     "logo": {
       "x": 26,
       "y": 26
+    },
+    "content": {
+      "fontSize": 22,
+      "character_limit": 40,
+      "textBox": {
+        "width": 160,
+        "height": 135
+      }
     }
   },
+
   {
     "name": "300_600",
     "dimensions": {
@@ -29,8 +38,17 @@
     "logo": {
       "x": -17,
       "y": 104
+    },
+    "content": {
+      "fontSize": 30,
+      "character_limit": 105,
+      "textBox": {
+        "width": 240,
+        "height": 230
+      }
     }
   },
+
   {
     "name": "970_250",
     "dimensions": {
@@ -45,8 +63,17 @@
     "logo": {
       "x": 500,
       "y": 20
+    },
+    "content": {
+      "fontSize": 38,
+      "character_limit": 120,
+      "textBox": {
+        "width": 600,
+        "height": 135
+      }
     }
   },
+
   {
     "name": "1080_1080",
     "dimensions": {

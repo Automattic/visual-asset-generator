@@ -19,6 +19,10 @@ do
       echo "Generating assets..."
       python3 app.py --format 970_250
       ;;
+    "970x250")
+      echo "Generating assets..."
+      python3 app.py --format 970_250
+      ;;
     "Quit")
       break
       ;;

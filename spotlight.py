@@ -1,8 +1,11 @@
 from roundedRect import roundedRect
 
+LOREM = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
+
 class Spotlight:
     def __init__(self, db, face, template):
         self.noto = db.installFont('/Users/jeff-ong/Library/Fonts/NotoSans-Regular.ttf')
+        self.recoleta = db.installFont('/Users/jeff-ong/Library/Fonts/Latinotype - Recoleta Regular.otf')
         self.db = db
         sf = 1
         if (template['name'].find('@2x') != -1):
@@ -14,7 +17,11 @@ class Spotlight:
         template['dimensions']['height'] *= sf
         template['logo']['x'] *= sf
         template['logo']['y'] *= sf
+        template['content']['fontSize'] *= sf
+        template['content']['textBox']['width'] *= sf
+        template['content']['textBox']['height'] *= sf
 
+        self.content = template['content']
         self.button = { 'fontSize': 12 * sf, 'width': 124 * sf, 'height': 40 * sf, 'borderRadius': 3 * sf }
         self.cta = 'Start for free'
         self.resolution = sf
@@ -25,12 +32,41 @@ class Spotlight:
         self.face = face['face'] 
         self.logo = template['logo']
         self.frame = template['name']
+        self.margin = self.width * .1
+        if (self.height < self.width):
+            self.margin = self.height * .1
 
-    # def renderCopy(self):
-        # drawBot.fill(1)
-        # drawBot.font(RECOLETA, 88)
-        # drawBot.blendMode('normal')
-        # drawBot.text('Start a hat company.', (100, 350))
+    def renderCopy(self):
+        self.db.fill(1)
+        self.db.font(self.recoleta, self.content['fontSize'])
+        copy_x = self.margin
+        copy_y = self.height - self.margin - self.content['textBox']['height']
+        self.db.textBox(LOREM[:self.content['character_limit']], (copy_x, copy_y, self.content['textBox']['width'], self.content['textBox']['height']))
+        cursor = copy_y 
+        return cursor
+    
+    def renderButton(self, cursor):
+        self.db.fill(213/255,44/255,130/255) # product pink
+        button_y = cursor - self.margin
+        button_x = self.margin 
+        roundedRect(self.db, button_x, button_y, self.button['width'], self.button['height'], self.button['borderRadius'])
+        self.db.font('Noto Sans Bold')
+        self.db.fontSize(self.button['fontSize'])
+        self.db.fill(1) # product pink
+        self.db.textBox(self.cta, (button_x, button_y - self.button['height'] / 4, self.button['width'], self.button['height']), align="center")
+        cursor -= self.button['height']
+        return cursor
+
+    def renderBadge(self, cursor):
+        badge = self.db.ImageObject('assets/badge.png')
+        badge_size = self.db.imageSize(badge)[0]
+        sf = self.button['width'] / badge_size
+        badge.lanczosScaleTransform(sf)
+
+        badge_y = cursor - self.margin
+        badge_x = self.margin
+        self.db.blendMode('normal')
+        self.db.image(badge, (badge_x, badge_y))
 
     def renderLogo(self):
         logo = self.db.ImageObject('assets/logo_mark.png')
@@ -50,19 +86,6 @@ class Spotlight:
         # frame.blendWithMask(backgroundImage=None, maskImage=mask)
         self.db.blendMode('normal')
         self.db.image(frame, (0,0), .90)
-
-    def renderButton(self):
-        self.db.fill(213/255,44/255,130/255) # product pink
-        buttonMargin = self.width * .1
-        if (self.height < self.width):
-            buttonMargin = self.height * .1
-        buttonY = self.height - buttonMargin - self.button['height']
-        buttonX = buttonMargin 
-        roundedRect(self.db, buttonX, buttonY, self.button['width'], self.button['height'], self.button['borderRadius'])
-        self.db.font('Noto Sans Bold')
-        self.db.fontSize(self.button['fontSize'])
-        self.db.fill(1) # product pink
-        self.db.textBox(self.cta, (buttonX, buttonY - self.button['height'] / 4, self.button['width'], self.button['height']), align="center")
 
     def renderPortrait(self, magic, shift):
         self.db.fill(1,1,1,1)
@@ -89,7 +112,9 @@ class Spotlight:
         self.renderPortrait(magic, shift)
         self.renderFrame()
         self.renderLogo()
-        self.renderButton()
+        cursor = self.renderCopy()
+        cursor = self.renderButton(cursor)
+        self.renderBadge(cursor)
 
     def save(self, fp):
         self.db.saveImage(fp)
