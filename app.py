@@ -8,9 +8,9 @@ from spotlight import Spotlight
 if __name__ == "__main__":
     parser = ArgumentParser(description='drawbot asset generator')
     parser.add_argument('--format', required=True, type=str)
+    parser.add_argument('--copy', required=False, type=str)
     args = parser.parse_args()
 
-    RECOLETA = drawBot.installFont('/Users/jeff-ong/Library/Fonts/Latinotype - Recoleta Regular.otf')
     MAGIC = [ .4, .5, .6 ]
     SHIFT = [ .6, .625, .65 ]
 
@@ -32,10 +32,10 @@ if __name__ == "__main__":
         print('Making directory outputs/renders/{}'.format(img_id))
         os.mkdir('outputs/renders/{}'.format(img_id))
     except:
-        'Directory exists, continuing...'
+        print('Directory exists, continuing...')
 
 
-    ad = Spotlight(drawBot, face, template)
+    ad = Spotlight(drawBot, face, template, args.copy)
     i = 0
     for magic_number in MAGIC:
         i+=1
@@ -45,7 +45,7 @@ if __name__ == "__main__":
         ad.end()
 
     template['name'] = template['name'] + '@2x'
-    ad = Spotlight(drawBot, face, template)
+    ad = Spotlight(drawBot, face, template, args.copy)
     for magic_number in MAGIC:
         i+=1
         print('Rendering image {} of {}'.format(i, len(MAGIC) * 2))

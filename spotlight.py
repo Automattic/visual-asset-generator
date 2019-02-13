@@ -3,7 +3,7 @@ from roundedRect import roundedRect
 LOREM = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
 
 class Spotlight:
-    def __init__(self, db, face, template):
+    def __init__(self, db, face, template, copy):
         self.noto = db.installFont('/Users/jeff-ong/Library/Fonts/NotoSans-Regular.ttf')
         self.recoleta = db.installFont('/Users/jeff-ong/Library/Fonts/Latinotype - Recoleta Regular.otf')
         self.db = db
@@ -35,13 +35,15 @@ class Spotlight:
         self.margin = self.width * .1
         if (self.height < self.width):
             self.margin = self.height * .1
+        # print(copy)
+        self.copy = copy[:self.content['character_limit']]
 
     def renderCopy(self):
         self.db.fill(1)
         self.db.font(self.recoleta, self.content['fontSize'])
         copy_x = self.margin
         copy_y = self.height - self.margin - self.content['textBox']['height']
-        self.db.textBox(LOREM[:self.content['character_limit']], (copy_x, copy_y, self.content['textBox']['width'], self.content['textBox']['height']))
+        self.db.textBox(self.copy, (copy_x, copy_y, self.content['textBox']['width'], self.content['textBox']['height']))
         cursor = copy_y 
         return cursor
     
@@ -67,6 +69,7 @@ class Spotlight:
         badge_x = self.margin
         self.db.blendMode('normal')
         self.db.image(badge, (badge_x, badge_y))
+        return badge_y
 
     def renderLogo(self):
         logo = self.db.ImageObject('assets/logo_mark.png')
