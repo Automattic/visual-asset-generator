@@ -12,7 +12,9 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     MAGIC = [ .4, .5, .6 ]
-    SHIFT = [ .6, .625, .65 ]
+    # SHIFT = [ .6, .625, .65 ]
+    COLORS = ['_a', '_b', '_c']
+    SIZES = ['', '@2x']
 
     with open('data/faces.json', 'r') as f:
         faces = json.load(f)
@@ -37,19 +39,17 @@ if __name__ == "__main__":
 
     ad = Spotlight(drawBot, face, template, args.copy)
     i = 0
-    for magic_number in MAGIC:
-        i+=1
-        print('Rendering image {} of {}'.format(i, len(MAGIC) * 2))
-        ad.render(magic_number, 1)
-        ad.save("outputs/renders/{}/{}_{}.png".format(img_id, template['name'], magic_number))
-        ad.end()
-
-    template['name'] = template['name'] + '@2x'
-    ad = Spotlight(drawBot, face, template, args.copy)
-    for magic_number in MAGIC:
-        i+=1
-        print('Rendering image {} of {}'.format(i, len(MAGIC) * 2))
-        ad.render(magic_number, 1)
-        ad.save("outputs/renders/{}/{}_{}.png".format(img_id, template['name'], magic_number))
-        ad.end()
+    doubled = False
+    for s in SIZES:
+        for c in COLORS:
+            frame_path = template['name'] + c + s
+            for magic_number in MAGIC:
+                i+=1
+                print('Rendering image {} of {}'.format(i, len(MAGIC) * len(SIZES) * len(COLORS)))
+                if s == '@2x' and doubled == False:
+                    ad.doubleSize()
+                    doubled = True
+                ad.render(magic_number, frame_path)
+                ad.save("outputs/renders/{}/{}_{}.png".format(img_id, frame_path, magic_number))
+                ad.end()
     print('Done.')

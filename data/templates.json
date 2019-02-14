@@ -19,7 +19,7 @@
       "character_limit": 40,
       "textBox": {
         "width": 160,
-        "height": 135
+        "height": 115
       }
     }
   },
@@ -44,7 +44,7 @@
       "character_limit": 105,
       "textBox": {
         "width": 240,
-        "height": 230
+        "height": 210
       }
     }
   },

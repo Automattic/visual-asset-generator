@@ -16,15 +16,13 @@ do
       ;;
     "300x600")
       echo "Generating assets..."
-      python3 app.py --format 300_600 
+      python3 app.py --format 300_600 --copy "$fullname"
+      open outputs/renders
       ;;
     "970x250")
       echo "Generating assets..."
-      python3 app.py --format 970_250
-      ;;
-    "970x250")
-      echo "Generating assets..."
-      python3 app.py --format 970_250
+      python3 app.py --format 970_250 --copy "$fullname"
+      open outputs/renders
       ;;
     "Quit")
       break
