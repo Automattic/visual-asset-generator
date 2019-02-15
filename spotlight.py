@@ -4,7 +4,7 @@ from random import shuffle
 LOREM = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
 
 class Spotlight:
-    def __init__(self, db, face, template, copy):
+    def __init__(self, db, face, template):
         self.noto = db.installFont('/Users/jeff-ong/Library/Fonts/NotoSans-Regular.ttf')
         self.recoleta = db.installFont('/Users/jeff-ong/Library/Fonts/Latinotype - Recoleta Regular.otf')
         self.db = db
@@ -23,10 +23,6 @@ class Spotlight:
         if (self.height < self.width):
             self.margin = self.height * .1
         # print(copy)
-        if len(copy) > 0:
-            self.copy = copy[:self.content['character_limit']]
-        else:
-            self.copy = LOREM[:self.content['character_limit']]
 
     def renderCopy(self, cursor):
         self.db.fill(1)
@@ -36,7 +32,6 @@ class Spotlight:
         self.db.textBox(self.copy, (copy_x, copy_y, self.content['textBox']['width'], self.content['textBox']['height']))
         cursor = copy_y 
         return cursor
-
     
     def renderButton(self, cursor):
         self.db.blendMode('normal')
@@ -117,7 +112,11 @@ class Spotlight:
         self.content['textBox']['height'] *= 2
         self.button = { 'fontSize': 12 * 2, 'width': 124 * 2, 'height': 40 * 2, 'borderRadius': 3 * 2 }
 
-    def render(self, magic, frame_path):
+    def render(self, magic, frame_path, copy):
+        if len(copy) > 0:
+            self.copy = copy[:self.content['character_limit']]
+        else:
+            self.copy = LOREM[:self.content['character_limit']]
         self.color_scheme = 'blue'
         if (frame_path.find('_b') != -1):
             self.color_scheme = 'pink'
