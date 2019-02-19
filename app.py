@@ -23,9 +23,12 @@ if __name__ == "__main__":
     translator = Translator()
 
     MAGIC = [ .5, .6 ]
-    LANGUAGES = ['en', 'es', 'ja']
+    LANGUAGES = ['en']
     COLORS = ['_a', '_b', '_c']
     SIZES = ['', '@2x']
+    if args.translate:
+        LANGUAGES = ['en', 'es', 'ja']
+
 
     with open('data/faces.json', 'r') as f:
         faces = json.load(f)
@@ -52,16 +55,17 @@ if __name__ == "__main__":
     doubled = False
     for language in LANGUAGES:
         copy = translator.translate(args.copy, dest=language).text
+        cta = translator.translate("Start for free", dest=language).text
         for s in SIZES:
             for c in COLORS:
                 frame_path = template['name'] + c + s
                 for magic_number in MAGIC:
                     i+=1
-                    print('Rendering image {} of {}'.format(i, len(MAGIC) * len(SIZES) * len(COLORS) * len(LANGUAGES)))
+                    print('Rendering {} of {}'.format(i, len(MAGIC) * len(SIZES) * len(COLORS) * len(LANGUAGES)))
                     if s == '@2x' and doubled == False:
                         ad.doubleSize()
                         doubled = True
-                    ad.render(magic_number, frame_path, copy)
+                    ad.render(magic_number, frame_path, copy, cta)
                     ad.save("outputs/renders/{}/{}_{}_{}.png".format(img_id, language, frame_path, magic_number))
                     ad.end()
     print('Done.')

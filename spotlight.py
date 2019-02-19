@@ -10,7 +10,6 @@ class Spotlight:
         self.db = db
         self.content = template['content']
         self.button = { 'fontSize': 12, 'width': 124, 'height': 40, 'borderRadius': 3 }
-        self.cta = 'Start for free'
         self.width = template['dimensions']['width']
         self.height = template['dimensions']['height']
         self.spotlight = template['spotlight']
@@ -112,11 +111,12 @@ class Spotlight:
         self.content['textBox']['height'] *= 2
         self.button = { 'fontSize': 12 * 2, 'width': 124 * 2, 'height': 40 * 2, 'borderRadius': 3 * 2 }
 
-    def render(self, magic, frame_path, copy):
+    def render(self, magic, frame_path, copy, cta):
         if len(copy) > 0:
             self.copy = copy[:self.content['character_limit']]
         else:
             self.copy = LOREM[:self.content['character_limit']]
+        self.cta = cta
         self.color_scheme = 'blue'
         if (frame_path.find('_b') != -1):
             self.color_scheme = 'pink'
@@ -132,6 +132,7 @@ class Spotlight:
         # cursor = self.height
         # for i in range(0,len(renderFunctions)):
         #     cursor = renderFunctions[i](cursor)
+
         cursor = self.renderBadge(self.height)
         cursor = self.renderCopy(cursor)
         cursor = self.renderButton(cursor)
