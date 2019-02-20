@@ -5,8 +5,8 @@ LOREM = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
 
 class Spotlight:
     def __init__(self, db, face, template):
-        self.noto = db.installFont('/Users/jeff-ong/Library/Fonts/NotoSans-Regular.ttf')
-        self.recoleta = db.installFont('/Users/jeff-ong/Library/Fonts/Latinotype - Recoleta Regular.otf')
+        self.noto = db.installFont('assets/NotoSans-Regular.ttf')
+        self.recoleta = db.installFont('assets/Latinotype - Recoleta Regular.otf')
         self.db = db
         self.content = template['content']
         self.button = { 'fontSize': 12, 'width': 124, 'height': 40, 'borderRadius': 3 }
@@ -97,7 +97,7 @@ class Spotlight:
         im_y = self.spotlight['y'] - ( self.img['h'] - self.face['h'] - self.face['y'] ) / self.img['h'] * self.db.imageSize(im)[1] # this line of code took me two hours
         self.db.image(im, (im_x, im_y))
 
-    def doubleSize(self):
+    def renderRetina(self):
         self.spotlight['d'] *= 2
         self.spotlight['x'] *= 2
         self.spotlight['y'] *= 2
