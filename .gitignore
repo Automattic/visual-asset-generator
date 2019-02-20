@@ -1,4 +1,5 @@
 .DS_Store
+*.zip
 __pycache__
 web
 assets
@@ -7,3 +8,5 @@ outputs
 cv-py3
 drawBot
 drawbot-master
+build
+dist
