@@ -2,7 +2,7 @@
 # Bash Menu Script Example
 
 source cv-py3/bin/activate
-PS3='What size asset do you want (1/2/3/4)? '
+PS3='What size asset do you want (1/2/3/4 to quit)? '
 options=("300x250" "300x600" "970x250" "Quit")
 select opt in "${options[@]}"
 do
