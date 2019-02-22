@@ -17,11 +17,11 @@ class Spotlight:
         self.face = face['face'] 
         self.logo = template['logo']
         self.color_scheme = 'blue'
+        self.db.stroke(None)
         # self.frame = template['frame']
         self.margin = self.width * .1
         if (self.height < self.width):
             self.margin = self.height * .1
-        # print(copy)
 
     def renderCopy(self, cursor):
         self.db.fill(1)
@@ -75,8 +75,8 @@ class Spotlight:
         frame.lanczosScaleTransform(sf)
         # mask = self.db.ImageObject('assets/mask_{}.png'.format(self.mask))
         # frame.blendWithMask(backgroundImage=None, maskImage=mask)
-        self.db.blendMode('normal')
-        self.db.image(frame, (0,0), .90)
+        self.db.blendMode('multiply')
+        self.db.image(frame, (0,0))
 
     def renderPortrait(self, magic):
         self.db.fill(1,1,1,1)
