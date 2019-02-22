@@ -1,7 +1,6 @@
 #!/bin/bash
 # Bash Menu Script Example
 
-# source cv-py3/bin/activate
 mkdir -p ~/Downloads/renders
 PS3='What size asset do you want (1/2/3/4 to quit)? '
 options=("300x250" "300x600" "970x250" "Quit")

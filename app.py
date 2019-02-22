@@ -68,6 +68,6 @@ if __name__ == "__main__":
                     ad.renderRetina()
                     retina = True
                 ad.render(magic_number, frame_path, copy, cta)
-                ad.save("{}/Downloads/renders/{}/{}_{}_{}.png".format(homedir, img_id, language, frame_path, magic_number))
+                ad.save("{}/Downloads/renders/{}/{}_{}_{}.png".format(homedir, img_id, 'en', frame_path, magic_number))
                 ad.end()
     print('Done.')
