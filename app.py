@@ -45,7 +45,7 @@ if __name__ == "__main__":
     homedir = os.environ['HOME']
     try:
         print('Making directory {}/Downloads/renders/{}'.format(homedir, img_id))
-        os.makedirs('{}/Downloads/renders/{}'.format(homedir, img_id), exist_ok=True)
+        os.makedirs('{}/Downloads/renders/{}px'.format(homedir, template['name']), exist_ok=True)
     except FileExistsError:
         pass
 
@@ -68,6 +68,6 @@ if __name__ == "__main__":
                     ad.renderRetina()
                     retina = True
                 ad.render(magic_number, frame_path, copy, cta)
-                ad.save("{}/Downloads/renders/{}/{}_{}_{}.png".format(homedir, img_id, 'en', frame_path, magic_number))
+                ad.save("{}/Downloads/renders/{}px/{}-{}-{}-{}.png".format(homedir, template['name'], 'en', img_id, frame_path, magic_number))
                 ad.end()
     print('Done.')

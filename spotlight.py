@@ -43,7 +43,7 @@ class Spotlight:
         self.db.font('Noto Sans Bold')
         self.db.fontSize(self.button['fontSize'])
         self.db.fill(1) # product pink
-        self.db.textBox(self.cta, (button_x, button_y - self.button['height'] / 4, self.button['width'], self.button['height']), align="center")
+        self.db.textBox(self.cta, (button_x, button_y - self.button['height'] / 3.5, self.button['width'], self.button['height']), align="center")
         cursor -= self.button['height']
         return cursor
 
