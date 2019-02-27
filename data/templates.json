@@ -16,7 +16,8 @@
     },
     "content": {
       "fontSize": 22,
-      "character_limit": 40,
+      "character_limit": 70,
+      "alignment": "center",
       "textBox": {
         "width": 160,
         "height": 115
@@ -66,10 +67,35 @@
     },
     "content": {
       "fontSize": 38,
-      "character_limit": 120,
+      "character_limit": 140,
       "textBox": {
-        "width": 600,
+        "width": 680,
         "height": 110
+      }
+    }
+  },
+
+  {
+    "name": "160_600",
+    "dimensions": {
+      "width": 160,
+      "height": 600
+    },
+    "spotlight": {
+      "d": 120,
+      "x": 50,
+      "y": 44
+    },
+    "logo": {
+      "x": 20,
+      "y": 160
+    },
+    "content": {
+      "fontSize": 18,
+      "character_limit": 140,
+      "textBox": {
+        "width": 130,
+        "height": 210
       }
     }
   },
