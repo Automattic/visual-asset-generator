@@ -3,22 +3,31 @@ from random import shuffle
 
 LOREM = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
 
+
 class Spotlight:
     def __init__(self, db, face, template):
+        sf = 4
         self.noto = db.installFont('assets/NotoSans-Regular.ttf')
-        self.recoleta = db.installFont('assets/Latinotype - Recoleta Regular.otf')
+        self.recoleta = db.installFont('assets/Latinotype - Recoleta Light.otf')
         self.db = db
         self.content = template['content']
-        self.button = { 'fontSize': 12, 'width': 124, 'height': 40, 'borderRadius': 3 }
-        self.width = template['dimensions']['width']
-        self.height = template['dimensions']['height']
+        self.content['fontSize'] *= sf
+        self.content['textBox']['width'] *= sf
+        self.content['textBox']['height'] *= sf
+        self.button = { 'fontSize': 12 * sf, 'width': 100 * sf, 'height': 34 * sf, 'borderRadius': 4 * sf}
+        self.width = template['dimensions']['width'] * sf
+        self.height = template['dimensions']['height'] * sf
         self.spotlight = template['spotlight']
+        self.spotlight['d'] *= sf
+        self.spotlight['x'] *= sf
+        self.spotlight['y'] *= sf
         self.img = { 'path': face['path'], 'w': face['img']['w'], 'h': face['img']['h'] }
         self.face = face['face'] 
         self.logo = template['logo']
+        self.logo['x'] *= sf
+        self.logo['y'] *= sf
         self.color_scheme = 'blue'
         self.db.stroke(None)
-        # self.frame = template['frame']
         self.margin = self.width * .1
         if (self.height < self.width):
             self.margin = self.height * .1
@@ -39,11 +48,15 @@ class Spotlight:
             self.db.fill(1/255,96/255,135/255) # product blue
         button_y = cursor - (self.margin / 2) - self.button['height']
         button_x = self.margin 
+        self.db.stroke(0,0,0,.1)
+        self.db.strokeWidth(1)
         roundedRect(self.db, button_x, button_y, self.button['width'], self.button['height'], self.button['borderRadius'])
-        self.db.font('Noto Sans Bold')
+        self.db.stroke(None)
+        self.db.font('Noto Sans')
         self.db.fontSize(self.button['fontSize'])
+        self.db.fontVariations(wght=3, width=2)
         self.db.fill(1) # product pink
-        self.db.textBox(self.cta, (button_x, button_y - self.button['height'] / 3.5, self.button['width'], self.button['height']), align="center")
+        self.db.textBox(self.cta, (button_x, button_y - self.button['height'] / 4, self.button['width'], self.button['height']), align="center")
         cursor -= self.button['height']
         return cursor
 
@@ -97,26 +110,14 @@ class Spotlight:
         im_y = self.spotlight['y'] - ( self.img['h'] - self.face['h'] - self.face['y'] ) / self.img['h'] * self.db.imageSize(im)[1] # this line of code took me two hours
         self.db.image(im, (im_x, im_y))
 
-    def renderRetina(self):
-        self.spotlight['d'] *= 2
-        self.spotlight['x'] *= 2
-        self.spotlight['y'] *= 2
-        self.margin *= 2
-        self.width *= 2
-        self.height *= 2
-        self.logo['x'] *= 2
-        self.logo['y'] *= 2
-        self.content['fontSize'] *= 2
-        self.content['textBox']['width'] *= 2
-        self.content['textBox']['height'] *= 2
-        self.button = { 'fontSize': 12 * 2, 'width': 124 * 2, 'height': 40 * 2, 'borderRadius': 3 * 2 }
-
     def render(self, magic, frame_path, copy, cta):
         if len(copy) > 0:
             self.copy = copy[:self.content['character_limit']]
         else:
             self.copy = LOREM[:self.content['character_limit']]
         self.cta = cta
+        if len(cta) == 0:
+            self.cta = 'Get started'
         self.color_scheme = 'blue'
         if (frame_path.find('_b') != -1):
             self.color_scheme = 'pink'
