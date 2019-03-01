@@ -5,6 +5,11 @@
       "width": 300,
       "height": 250
     },
+    "circle": {
+      "d": 140,
+      "x": 186,
+      "y": 26
+    },
     "spotlight": {
       "d": 140,
       "x": 210,
@@ -21,7 +26,12 @@
       "textBox": {
         "width": 160,
         "height": 115
-      }
+      },
+      "textbox_offer": {
+        "width": 254,
+        "height": 62
+      },
+      "character_limit_offer": 70
     }
   },
 
