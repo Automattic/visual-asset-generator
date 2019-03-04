@@ -7,7 +7,9 @@ A python application for generating Wordpress.com brand assets.
 ## Getting Started
 
 ### Installation
-It's recommended to run this application using a python virtual environment. From your terminal: 
+In the project's root directory, [compile drawbot as a python module](https://github.com/typemytype/drawbot).
+
+After compiling drawbot, install the remaining requirements. It's recommended to run this application using a python virtual environment. From your terminal: 
 
 `virtualenv env`
 
