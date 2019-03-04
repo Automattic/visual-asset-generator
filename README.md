@@ -2,6 +2,8 @@
 
 A python application for generating Wordpress.com brand assets. 
 
+![970px by 250px example Wordpress.com brand asset](https://github.com/Automattic/visual-asset-generator/tree/master/samples/970_250-0.6-915095246_a.png@1x.png "970 x 250 brand asset")
+
 ## Getting Started
 
 ### Installation
@@ -20,6 +22,8 @@ The project depends on [drawBot](https://drawbot.com) and [python resize image](
 ```Bash
 ./local.sh
 ```
+
+![Animation of a code terminal running a shell script to generate assets](https://github.com/Automattic/visual-asset-generator/tree/master/samples/inputs.gif "Command line asset generator")
 
 OR 
 
