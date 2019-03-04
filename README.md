@@ -7,23 +7,27 @@ A python application for generating Wordpress.com brand assets.
 ### Installation
 It's recommended to run this application using a python virtual environment. From your terminal: 
 
-```Shell
-    virtualenv env
-    source env/bin/activate
-    pip install -r requirements.txt
-```
+`virtualenv env`
+
+`source env/bin/activate`
+
+`pip install -r requirements.txt`
 
 The project depends on [drawBot](https://drawbot.com) and [python resize image](https://github.com/charlesthk/python-resize-image).
 
 ### Usage
 
-```./local.sh```
+```Bash
+./local.sh
+```
 
 OR 
 
 Invoke the python application directly:
 
-```python app.py [options]```
+```Bash
+python app.py [options]
+```
 
 #### Options
 
