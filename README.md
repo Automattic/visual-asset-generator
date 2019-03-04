@@ -1,22 +1,57 @@
-# Spotlight Generator
+# Visual Asset Generator
 
-### Instructions to get OpenCV running
+A python application for generating Wordpress.com brand assets. 
 
-- Install python bindings for OpenCV (here are [instructions](https://medium.com/@nuwanprabhath/installing-opencv-in-macos-high-sierra-for-python-3-89c79f0a246a) for MacOS)
+![970px by 250px example Wordpress.com brand asset](https://github.com/Automattic/visual-asset-generator/tree/master/samples/970_250-0.6-915095246_a.png@1x.png "970 x 250 brand asset")
 
-- Link haar-cascade pre-trained classifier:
-    `$ ln -s /usr/local/opt/opencv/share/opencv4/haarcascades/haarcascade_frontalface_default.xml haarcascade_frontalface_default.xml`
+## Getting Started
 
+### Installation
+In the project's root directory, [compile drawbot as a python module](https://github.com/typemytype/drawbot).
 
-### Background research
+After compiling drawbot, install the remaining requirements. It's recommended to run this application using a python virtual environment. From your terminal: 
 
-https://stackoverflow.com/questions/401847/circle-rectangle-collision-detection-intersection
+`virtualenv env`
 
-### Drawbot Installation
+`source env/bin/activate`
 
-`pip3 install -U defcon`
+`pip install -r requirements.txt`
 
-`pip3 install -U PyObjC`
+The project depends on [drawBot](https://drawbot.com) and [python resize image](https://github.com/charlesthk/python-resize-image).
+
+### Usage
+
+```Bash
+./local.sh
+```
+
+![Animation of a code terminal running a shell script to generate assets](https://github.com/Automattic/visual-asset-generator/tree/master/samples/inputs.gif "Command line asset generator")
+
+OR 
+
+Invoke the python application directly:
+
+```Bash
+python app.py [options]
+```
+
+#### Options
+
+##### --format
+
+Currently supports: 
+- `300_250` (70 character limit)
+- `300_600` (105 character limit)
+- `160_600` (140 character limit)
+- `970_250` (140 character limit)
+
+###### --copy 
+
+The copy that should populate the asset. The character limit depends on the format.
+
+###### --cta 
+
+The copy that should populate the button.
 
 ### Packaging for Distribution
 
@@ -35,3 +70,19 @@ https://stackoverflow.com/questions/401847/circle-rectangle-collision-detection-
 4. Build app:
 
 `python setup.py py2app`
+
+### Instructions for installing OpenCV
+
+OpenCV is used to determine the position of faces in a batch of portraits. To use opencv for python:
+
+- Install python bindings for OpenCV (here are [instructions](https://medium.com/@nuwanprabhath/installing-opencv-in-macos-high-sierra-for-python-3-89c79f0a246a) for MacOS)
+- Link haar-cascade pre-trained classifier, e.g.:
+    `$ ln -s /usr/local/opt/opencv/share/opencv4/haarcascades/haarcascade_frontalface_default.xml haarcascade_frontalface_default.xml`
+    
+## What's Not Included
+
+Portraits and other assets used in composing the images.
+
+## What's Next
+- There has active discussions around its usage in international markets, however automated translation is often imperfect. Adding the ability to export layers that can be pulled into image compositing software (e.g. Sketch, Figma) is an alternative to allow for global content managers to edit.
+- Further automating this process to generate assets seeded with audience and market specific demographics.
