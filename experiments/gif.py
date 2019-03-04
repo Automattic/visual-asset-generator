@@ -14,12 +14,14 @@ shuffle(files)
 
 db.newDrawing()
 db.size(width, height)
-db.frameDuration(2)
 for i in range(len(files)):
     fp = 'outputs/gif/'+files[i]
     print(fp)
     db.newPage(width, height)
-    db.fill(None)
+    db.frameDuration(.25)
+    # db.fill(0)
+    # db.rect(0,0,width,height)
+    # db.fill(None)
     im = db.ImageObject(fp)
     if (im.size()[1] == height):
         pos = ((width -im.size()[0]) / 2, 0)
@@ -29,5 +31,5 @@ for i in range(len(files)):
         pos = ( (width - im.size()[0]) / 2, (height - im.size()[1]) / 2 )
 
     db.image(im, pos)
-db.saveImage('outputs/giftest.gif')
+db.saveImage('outputs/gif_slow.gif')
 db.endDrawing()
