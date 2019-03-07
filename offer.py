@@ -6,15 +6,16 @@ LOREM = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
 class Offer:
     def __init__(self, db, template):
         sf = 4
+        self.sf = sf
         self.noto = db.installFont('assets/NotoSans-Regular.ttf')
-        self.recoleta = db.installFont('assets/Latinotype - Recoleta Regular.otf')
+        self.recoleta = db.installFont('assets/Latinotype - Recoleta Light.otf')
+        # self.recoleta = db.installFont('assets/Latinotype - Recoleta Regular.otf')
         self.recoleta_bold = db.installFont('assets/Latinotype - Recoleta Medium.otf')
         self.db = db
         self.content = template['content']
         self.content['fontSize'] *= sf
-        self.content['textbox_offer']['width'] *= sf
-        self.content['textbox_offer']['height'] *= sf
-        self.button = { 'fontSize': 12 * sf, 'width': 100 * sf, 'height': 34 * sf, 'borderRadius': 4 * sf}
+        button = template['button']
+        self.button = { 'fontSize': button['fontSize'] * sf, 'width': button['width'] * sf, 'height': button['height'] * sf, 'borderRadius': button['borderRadius'] * sf}
         self.width = template['dimensions']['width'] * sf
         self.height = template['dimensions']['height'] * sf
         self.spotlight = template['circle']
@@ -34,55 +35,59 @@ class Offer:
         self.db.fill(1)
         self.db.blendMode('normal')
         self.db.font(self.recoleta, self.content['fontSize'])
-        copy_x = self.margin
-        copy_y = cursor - (self.margin / 1.5) - self.content['textbox_offer']['height']
-        self.db.textBox(self.copy, (copy_x, copy_y, self.content['textbox_offer']['width'], self.content['textbox_offer']['height']))
-        cursor = copy_y 
-        return cursor
+        x = self.content['textbox_offer']['copy']['x'] * self.sf
+        y = self.content['textbox_offer']['copy']['y'] * self.sf
+        w = self.content['textbox_offer']['copy']['width'] * self.sf
+        h = self.content['textbox_offer']['copy']['height'] * self.sf
+        # copy_y = cursor - (self.margin / 1.5) - self.content['textbox_offer']['height']
+        self.db.textBox(self.copy, (x, y, w, h), align=self.content['align'])
 
     def renderOffer(self, discount):
         self.db.stroke(1)
         self.db.strokeWidth(4)
         self.db.fill(None)
-        boxHeight = 140
-        y_pos = self.height / 2 - boxHeight / 2
-        self.db.rect(self.margin, y_pos, self.width - self.margin * 2, boxHeight)
+        x = self.content['textbox_offer']['box']['x'] * self.sf
+        y = self.content['textbox_offer']['box']['y'] * self.sf
+        w = self.content['textbox_offer']['box']['width'] * self.sf
+        h = self.content['textbox_offer']['box']['height'] * self.sf
+        if self.content['textbox_offer']['box']['outline'] > 0:
+            self.db.rect(x, y, w, h)
         self.db.stroke(None)
         self.db.fill(1)
-        self.db.font(self.recoleta_bold, self.content['fontSize'] * .65)
-        self.db.textBox(discount, (self.margin + self.margin / 4, y_pos - boxHeight / 4, self.width - self.margin * 2, boxHeight))
-        return y_pos
-    
+        self.db.font(self.recoleta_bold, self.content['textbox_offer']['box']['fontsize'] * self.sf)
+        margin = h / 4
+        if self.content['align'] == 'center':
+            margin = 0
+        self.db.textBox(discount, (x + margin, y - h / 5, w, h), align=self.content['align'])
+
     def renderButton(self):
         self.db.blendMode('normal')
         self.switchFill('pink')
         if self.color_scheme == 'pink': 
             self.switchFill('blue')
-        button_y = self.margin 
-        button_x = self.width - self.margin - self.button['width']
+        x = self.content['textbox_offer']['cta']['x'] * self.sf
+        y = self.content['textbox_offer']['cta']['y'] * self.sf
         self.db.stroke(0,0,0,.1)
         self.db.strokeWidth(1)
-        roundedRect(self.db, button_x, button_y, self.button['width'], self.button['height'], self.button['borderRadius'])
+        roundedRect(self.db, x, y, self.button['width'], self.button['height'], self.button['borderRadius'])
         self.db.stroke(None)
         self.db.font('Noto Sans')
         self.db.fontSize(self.button['fontSize'])
-        # self.db.fontVariations(wght=3, width=2)
         self.db.fill(1) # product pink
-        self.db.textBox(self.cta, (button_x, button_y - self.button['height'] / 4, self.button['width'], self.button['height']), align="center")
-        # cursor -= self.button['height']
-        return button_y
+        self.db.textBox(self.cta, (x, y - self.button['height'] / 4, self.button['width'], self.button['height']), align="center")
 
     def renderBadge(self):
         badge = self.db.ImageObject('assets/badge.png')
         badge_size = self.db.imageSize(badge)[0]
-        sf = self.button['width'] / badge_size
+        sf = self.content['textbox_offer']['badge']['width'] * self.sf / badge_size
         badge.lanczosScaleTransform(sf)
+        # y = self.db.imageSize(badge)[1] + self.margin / 1.5
+        # x = self.margin
+        x = self.content['textbox_offer']['badge']['x'] * self.sf
+        y = self.content['textbox_offer']['badge']['y'] * self.sf
 
-        badge_y = self.db.imageSize(badge)[1] + self.margin / 1.5
-        badge_x = self.margin
         self.db.blendMode('normal')
-        self.db.image(badge, (badge_x, badge_y))
-        return badge_y
+        self.db.image(badge, (x, y))
 
     def renderLogo(self):
         logo = self.db.ImageObject('assets/logo_mark_light_gray.png')
@@ -108,9 +113,9 @@ class Offer:
         self.db.fill(.85)
         self.db.oval(self.spotlight['x'], self.spotlight['y'], self.spotlight['d'], self.spotlight['d'])
 
-    def render(self, frame_path, copy, cta):
+    def render(self, frame_path, copy, cta, offer):
         self.copy = copy 
-        # self.copy = LOREM[:self.content['character_limit']]
+        self.offer = offer
         self.cta = 'Get started'
         if (frame_path.find('_a') > -1):
             self.color_scheme = 'pink'
@@ -124,7 +129,7 @@ class Offer:
         self.renderLogo()
 
         self.renderCopy(self.height)
-        self.renderOffer('Get 20% off any Wordpress.com plan')
+        self.renderOffer(self.offer)
         self.renderBadge()
         self.renderButton()
 

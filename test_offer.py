@@ -1,16 +1,3 @@
-        self.renderCopy(0)
-        self.renderCopy(0)
-        self.renderCopy(0)
-        self.renderCopy(0)
-        self.renderCopy(0)
-        self.renderCopy(0)
-        self.renderCopy(0)
-        self.renderCopy(0)
-        self.renderCopy(0)
-        self.renderCopy(0)
-        self.renderCopy(0)
-        self.renderCopy(0)
-        self.renderCopy(0)
 import json
 import drawBot
 import os
@@ -25,6 +12,7 @@ if __name__ == "__main__":
     parser = ArgumentParser(description='drawbot asset generator')
     parser.add_argument('--format', required=False, type=str)
     parser.add_argument('--copy', required=False, type=str)
+    parser.add_argument('--offer', required=False, type=str)
     parser.add_argument('--cta', required=False, type=str)
     args = parser.parse_args()
 
@@ -35,7 +23,7 @@ if __name__ == "__main__":
         f.close()
 
     for t in templates:
-        if t['name'] == '300_250':
+        if t['name'] == args.format:
             template = t
 
     homedir = os.environ['HOME']
@@ -49,12 +37,13 @@ if __name__ == "__main__":
     i = 0
     copy = args.copy
     cta = args.cta 
+    offer = args.offer
 
     for c in COLORS:
         frame_path = template['name'] + c + '@2x'
         i+=1
         print('Rendering {} of {}'.format(i, len(COLORS)))
-        ad.render(frame_path, copy, cta)
+        ad.render(frame_path, copy, cta, offer)
         fp = "{}/Downloads/renders/{}px/{}-{}.png".format(homedir, template['name'], template['name'], 'offer' + c)
         ad.save(fp)
         ad.end()
