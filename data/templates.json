@@ -81,6 +81,12 @@
       "x": -44,
       "y": 120
     },
+    "button": {
+      "fontSize": 10,
+      "width": 90,
+      "height": 30, 
+      "borderRadius": 3
+    },
     "content": {
       "fontSize": 30,
       "character_limit": 105,
