@@ -19,7 +19,7 @@
     "spotlight": {
       "d": 140,
       "x": 210,
-      "y": 56
+      "y": 46
     },
     "logo": {
       "x": 26,
@@ -30,7 +30,7 @@
       "character_limit": 70,
       "align": "left",
       "textBox": {
-        "width": 160,
+        "width": 180,
         "height": 115
       },
       "textbox_offer": {
@@ -43,7 +43,7 @@
         "box": {
           "x": 18,
           "y": 108,
-          "width": 254,
+          "width": 150,
           "height": 32,
           "fontsize": 14,
           "outline": 1
