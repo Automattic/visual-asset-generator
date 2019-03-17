@@ -37,13 +37,13 @@
         "copy": {
           "x": 18,
           "y": 170,
-          "width": 180,
+          "width": 160,
           "height": 64
         },
         "box": {
           "x": 18,
           "y": 108,
-          "width": 150,
+          "width": 165,
           "height": 32,
           "fontsize": 14,
           "outline": 1
@@ -78,8 +78,8 @@
       "y": 120
     },
     "logo": {
-      "x": -44,
-      "y": 120
+      "x": -10,
+      "y": 108
     },
     "button": {
       "fontSize": 10,
@@ -150,12 +150,12 @@
       "y": 20
     },
     "content": {
-      "fontSize": 48,
+      "fontSize": 42,
       "character_limit": 140,
       "align": "left",
       "textBox": {
         "width": 680,
-        "height": 110
+        "height": 120
       },
       "textbox_offer": {
         "copy": {
