@@ -8,28 +8,28 @@ select opt in "${options[@]}"
 do
   case $opt in
     "300x250")
-      read -p "What should it say (40 chars max)? " copy
+      read -p "What should it say (70 chars max)? " copy
       read -p "What should the button say (16 chars max)? " cta
       echo "Generating assets..."
       python3 app.py --format 300_250 --copy "$copy" --cta "$cta"
       for o in "${!options[@]}"; do echo "$((o+1)))" "${options[$o]}"; done
       ;;
     "300x600")
-      read -p "What should it say (40 chars max)? " copy
+      read -p "What should it say (105 chars max)? " copy
       read -p "What should the button say (16 chars max)? " cta
       echo "Generating assets..."
       python3 app.py --format 300_600 --copy "$copy" --cta "$cta"
       for o in "${!options[@]}"; do echo "$((o+1)))" "${options[$o]}"; done
       ;;
     "160x600")
-      read -p "What should it say (40 chars max)? " copy
+      read -p "What should it say (140 chars max)? " copy
       read -p "What should the button say (16 chars max)? " cta
       echo "Generating assets..."
       python3 app.py --format 160_600 --copy "$copy" --cta "$cta"
       for o in "${!options[@]}"; do echo "$((o+1)))" "${options[$o]}"; done
       ;;
     "970x250")
-      read -p "What should it say (40 chars max)? " copy
+      read -p "What should it say (140 chars max)? " copy
       read -p "What should the button say (16 chars max)? " cta
       echo "Generating assets..."
       python3 app.py --format 970_250 --copy "$copy" --cta "$cta"
