@@ -1,0 +1,79 @@
+[
+  {
+    "label": "20 types of users",
+    "headline": "Who uses WordPress.com",
+    "data": [
+      "Blogger",
+      "Micro-publisher",
+      "Enterprise publisher",
+      "Service byzzer",
+      "Product byzzer",
+      "Non-profiter", 
+      "Store owner",
+      "Big byzzer",
+      "Builder",
+      "Non-dev builder / consultant",
+      "Super-builder",
+      "Hosting company",
+      "Open sourcer",
+      "Readers",
+      "Visitors",
+      "Transactors",
+      "Shoppers",
+      "Mobile phone users",
+      "User in an emerging market",
+      "Gen Z user"
+    ]
+  },
+  {
+    "label": "20 things WP / a8c is good at",
+    "headline": "What makes WordPress great",
+    "data": [
+      "Brand recognition",
+      "Backwards compatibility",
+      "We can work globally",
+      "Give things for free",
+      "Customer support",
+      "The open web",
+      "Grow with the customer",
+      "Own your content",
+      "Flexibility",
+      "Open source",
+      "NIRL Community",
+      "IRL community",
+      "Scale",
+      "Extensibility",
+      "Enables curiosity",
+      "Career gateway",
+      "Remote / distributed",
+      "Values-driven",
+      "Inclusivity",
+      "Gives back"
+    ]
+  },
+  {
+    "label": "20 emerging trends",
+    "headline": "What's coming next in the world",
+    "data": [
+      "Augmented reality",
+      "Mobile payments",
+      "Semi-private interaction",
+      "Dominance of platforms",
+      "Privacy rights",
+      "Automation",
+      "Virtual reality",
+      "Blurring real & fake",
+      "Private space exploration",
+      "Influencers",
+      "Machine intelligence",
+      "Voice tech",
+      "Ubiquitous computing",
+      "IoT",
+      "Micropayments",
+      "Income disparity",
+      "Gig economy",
+      "Geopolitical destabilization",
+      "Blockchain"
+    ]
+  }
+]

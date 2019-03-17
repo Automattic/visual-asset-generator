@@ -116,7 +116,7 @@ class Offer:
     def render(self, frame_path, copy, cta, offer):
         self.copy = copy 
         self.offer = offer
-        self.cta = 'Get started'
+        self.cta = cta 
         if (frame_path.find('_a') > -1):
             self.color_scheme = 'pink'
         elif (frame_path.find('_b') > -1):
