@@ -10,14 +10,14 @@ do
   case $opt in
     "300x250")
       read -p "What do you want it to say (40 chars max)? " copy
-      # read -p "Would you like it to be translated (y/n)? " translate
+      read -p "What should the button say (16 chars max)? " cta
       echo "Generating assets..."
       ./dist/app.app/Contents/MacOS/app --format 300_250 --copy "$copy" --cta "$cta"
       for o in "${!options[@]}"; do echo "$((o+1)))" "${options[$o]}"; done
       ;;
     "300x600")
       read -p "What do you want it to say (105 chars max)? " copy
-      # read -p "Would you like it to be translated (y/n)? " translate
+      read -p "What should the button say (16 chars max)? " cta
       echo "Generating assets..."
       ./dist/app.app/Contents/MacOS/app --format 300_600 --copy "$copy" --cta "$cta"
       for o in "${!options[@]}"; do echo "$((o+1)))" "${options[$o]}"; done
@@ -31,7 +31,7 @@ do
       ;;
     "970x250")
       read -p "What do you want it to say (140 chars max)? " copy
-      # read -p "Would you like it to be translated (y/n)? " translate
+      read -p "What should the button say (16 chars max)? " cta
       echo "Generating assets..."
       ./dist/app.app/Contents/MacOS/app --format 970_250 --copy "$copy" --cta "$cta"
       for o in "${!options[@]}"; do echo "$((o+1)))" "${options[$o]}"; done
