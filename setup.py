@@ -11,7 +11,7 @@ APP = ['app.py']
 DATA_FILES = ['data', 'assets']
 OPTIONS = {
     'py2app': {
-        'packages': ['requests', 'googletrans']
+        'packages': ['PIL']
     }
 }
 
