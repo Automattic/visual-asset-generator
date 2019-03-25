@@ -248,19 +248,65 @@
   },
 
   {
-    "name": "1080_1080",
+    "name": "728_90",
     "dimensions": {
-      "width": 1080,
-      "height": 1080
+      "width": 728,
+      "height": 90
+    },
+    "circle": {
+      "d": 100,
+      "x": 140,
+      "y": -20
     },
     "spotlight": {
-     "x": 700,
-     "y": 420,
-     "d": 400
+      "d": 100,
+      "x": 50,
+      "y": 44
     },
     "logo": {
-      "x": 88,
-      "y": 338
+      "x": 20,
+      "y": -20
+    },
+    "button": {
+      "fontSize": 10,
+      "width": 90,
+      "height": 30, 
+      "borderRadius": 3
+    },
+    "content": {
+      "fontSize": 18,
+      "character_limit": 60,
+      "align": "left",
+      "textBox": {
+        "width": 400,
+        "height": 45
+      },
+      "textbox_offer": {
+        "copy": {
+          "x": 16,
+          "y": 40,
+          "width": 400,
+          "height": 30
+        },
+        "box": {
+          "x": 16,
+          "y": 5,
+          "width": 400,
+          "height": 45,
+          "fontsize": 18,
+          "outline": 0
+        },
+        "badge": {
+          "x": 545,
+          "y": 32,
+          "width": 150
+        },
+        "cta": {
+          "x": 420,
+          "y": 30 
+        }
+      }
     }
   }
+
 ]

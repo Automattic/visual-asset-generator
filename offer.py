@@ -56,7 +56,7 @@ class Offer:
         self.db.fill(1)
         self.db.font(self.recoleta_bold, self.content['textbox_offer']['box']['fontsize'] * self.sf)
         margin = h / 4
-        if self.content['align'] == 'center':
+        if self.content['align'] == 'center' or self.content['textbox_offer']['box']['outline'] == 0:
             margin = 0
         self.db.textBox(discount, (x + margin, y - h / 5, w, h), align=self.content['align'])
 
