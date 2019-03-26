@@ -43,10 +43,10 @@
         "box": {
           "x": 18,
           "y": 108,
-          "width": 165,
+          "width": 220,
           "height": 32,
-          "fontsize": 14,
-          "outline": 1
+          "fontsize": 22,
+          "outline": 0
         },
         "badge": {
           "x": 18,
@@ -73,9 +73,9 @@
       "y": 136
     },
     "circle": {
-      "d": 180,
+      "d": 150,
       "x": 162,
-      "y": 120
+      "y": 108
     },
     "logo": {
       "x": -10,
@@ -98,7 +98,7 @@
       "textbox_offer": {
         "copy": {
           "x": 30,
-          "y": 450,
+          "y": 440,
           "width": 240,
           "height": 100
         },
@@ -106,9 +106,9 @@
           "x": 15,
           "y": 400,
           "width": 270,
-          "height": 36,
-          "fontsize": 15,
-          "outline": 1
+          "height": 40,
+          "fontsize": 24,
+          "outline": 0
         },
         "badge": {
           "x": 90,
@@ -166,11 +166,11 @@
         },
         "box": {
           "x": 26,
-          "y": 50,
+          "y": 48,
           "width": 444,
           "height": 50,
-          "fontsize": 22,
-          "outline": 1
+          "fontsize": 32,
+          "outline": 0
         },
         "badge": {
           "x": 696,
@@ -345,7 +345,7 @@
       },
       "textbox_offer": {
         "copy": {
-          "x": 10,
+          "x": -1000,
           "y": 10,
           "width": 150,
           "height": 30
@@ -407,7 +407,7 @@
       },
       "textbox_offer": {
         "copy": {
-          "x": 10,
+          "x": -1000,
           "y": 10,
           "width": 150,
           "height": 30
