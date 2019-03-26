@@ -307,6 +307,130 @@
         }
       }
     }
+  },
+
+  {
+    "name": "300_50",
+    "dimensions": {
+      "width": 300,
+      "height": 50
+    },
+    "circle": {
+      "d": 54,
+      "x": 174,
+      "y": -10
+    },
+    "spotlight": {
+      "d": 90,
+      "x": 50,
+      "y": 44
+    },
+    "logo": {
+      "x": 238,
+      "y": -10
+    },
+    "button": {
+      "fontSize": 10,
+      "width": 90,
+      "height": 30, 
+      "borderRadius": 3
+    },
+    "content": {
+      "fontSize": 12,
+      "character_limit": 60,
+      "align": "left",
+      "textBox": {
+        "width": 400,
+        "height": 45
+      },
+      "textbox_offer": {
+        "copy": {
+          "x": 10,
+          "y": 10,
+          "width": 150,
+          "height": 30
+        },
+        "box": {
+          "x": 12,
+          "y": 8,
+          "width": 150,
+          "height": 30,
+          "fontsize": 12,
+          "outline": 0
+        },
+        "badge": {
+          "x": 164,
+          "y": 14,
+          "width": 120
+        },
+        "cta": {
+          "x": -1000,
+          "y": -1000
+        }
+      }
+    }
+  },
+
+  {
+    "name": "320_50",
+    "dimensions": {
+      "width": 320,
+      "height": 50
+    },
+    "circle": {
+      "d": 54,
+      "x": 188,
+      "y": -10
+    },
+    "spotlight": {
+      "d": 90,
+      "x": 50,
+      "y": 44
+    },
+    "logo": {
+      "x": 254,
+      "y": -10
+    },
+    "button": {
+      "fontSize": 10,
+      "width": 90,
+      "height": 30, 
+      "borderRadius": 3
+    },
+    "content": {
+      "fontSize": 12,
+      "character_limit": 60,
+      "align": "left",
+      "textBox": {
+        "width": 400,
+        "height": 45
+      },
+      "textbox_offer": {
+        "copy": {
+          "x": 10,
+          "y": 10,
+          "width": 150,
+          "height": 30
+        },
+        "box": {
+          "x": 14,
+          "y": 8,
+          "width": 160,
+          "height": 30,
+          "fontsize": 12,
+          "outline": 0
+        },
+        "badge": {
+          "x": 174,
+          "y": 14,
+          "width": 120
+        },
+        "cta": {
+          "x": -1000,
+          "y": -1000
+        }
+      }
+    }
   }
 
 ]

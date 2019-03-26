@@ -42,9 +42,10 @@ class Offer:
         # copy_y = cursor - (self.margin / 1.5) - self.content['textbox_offer']['height']
         self.db.textBox(self.copy, (x, y, w, h), align=self.content['align'])
 
-    def renderOffer(self, discount):
+    def renderOffer(self):
         self.db.stroke(1)
         self.db.strokeWidth(4)
+        self.db.blendMode('normal')
         self.db.fill(None)
         x = self.content['textbox_offer']['box']['x'] * self.sf
         y = self.content['textbox_offer']['box']['y'] * self.sf
@@ -58,7 +59,7 @@ class Offer:
         margin = h / 4
         if self.content['align'] == 'center' or self.content['textbox_offer']['box']['outline'] == 0:
             margin = 0
-        self.db.textBox(discount, (x + margin, y - h / 5, w, h), align=self.content['align'])
+        self.db.textBox(self.offer, (x + margin, y - h / 5, w, h), align=self.content['align'])
 
     def renderButton(self):
         self.db.blendMode('normal')
@@ -128,10 +129,16 @@ class Offer:
         self.renderFrame(frame_path)
         self.renderLogo()
 
-        self.renderCopy(self.height)
-        self.renderOffer(self.offer)
+        if self.copy is not None:
+            self.renderCopy(self.height)
+
         self.renderBadge()
-        self.renderButton()
+
+        if (self.cta is not None):
+            self.renderButton()
+
+        if (self.offer is not None):
+            self.renderOffer()
 
     def save(self, fp):
         self.db.saveImage(fp)
