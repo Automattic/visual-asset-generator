@@ -1,12 +1,19 @@
 import json
 import drawBot
 import os
-from time import sleep
 from argparse import ArgumentParser
 from random import randint
 from offer import Offer
 from PIL import Image
 from resizeimage import resizeimage
+
+def str2bool(v):
+    if v.lower() in ('yes', 'true', 't', 'y', '1'):
+        return True
+    elif v.lower() in ('no', 'false', 'f', 'n', '0', ''):
+        return False
+    else:
+        raise argparse.ArgumentTypeError('Boolean value expected.')
 
 if __name__ == "__main__":
     parser = ArgumentParser(description='drawbot asset generator')
@@ -14,12 +21,17 @@ if __name__ == "__main__":
     parser.add_argument('--copy', required=False, type=str)
     parser.add_argument('--offer', required=False, type=str)
     parser.add_argument('--cta', required=False, type=str)
+    parser.add_argument('--spotlight', type=str2bool, const=False, help="Use a portrait", nargs='?')
     args = parser.parse_args()
 
     COLORS = ['_a', '_b', '_c']
 
     with open('data/templates.json', 'r') as f:
         templates = json.load(f)
+        f.close()
+
+    with open('data/faces.json', 'r') as f:
+        faces = json.load(f)
         f.close()
 
     for t in templates:
@@ -33,17 +45,15 @@ if __name__ == "__main__":
     except FileExistsError:
         pass
 
-    ad = Offer(drawBot, template)
+    ad = Offer(drawBot, template, args.spotlight)
     i = 0
-    copy = args.copy
-    cta = args.cta 
-    offer = args.offer
 
     for c in COLORS:
         frame_path = template['name'] + c + '@2x'
+        face = faces[randint(0,len(faces) - 1)] # pick a random portrait to use
         i+=1
         print('Rendering {} of {}'.format(i, len(COLORS)))
-        ad.render(frame_path, copy, cta, offer)
+        ad.render(frame_path, face, args.copy, args.cta, args.offer)
         fp = "{}/Downloads/renders/{}px/{}-{}.png".format(homedir, template['name'], template['name'], 'offer' + c)
         ad.save(fp)
         ad.end()

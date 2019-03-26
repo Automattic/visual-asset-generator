@@ -1,10 +1,7 @@
 from roundedRect import roundedRect
-from random import shuffle
-
-LOREM = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
 
 class Offer:
-    def __init__(self, db, template):
+    def __init__(self, db, template, is_spotlight):
         sf = 4
         self.sf = sf
         self.noto = db.installFont('assets/NotoSans-Regular.ttf')
@@ -18,7 +15,11 @@ class Offer:
         self.button = { 'fontSize': button['fontSize'] * sf, 'width': button['width'] * sf, 'height': button['height'] * sf, 'borderRadius': button['borderRadius'] * sf}
         self.width = template['dimensions']['width'] * sf
         self.height = template['dimensions']['height'] * sf
-        self.spotlight = template['circle']
+        self.is_spotlight = is_spotlight
+        if self.is_spotlight:
+            self.spotlight = template['spotlight']
+        else:
+            self.spotlight = template['circle']
         self.spotlight['d'] *= sf
         self.spotlight['x'] *= sf
         self.spotlight['y'] *= sf
@@ -109,12 +110,39 @@ class Offer:
 
     def renderFrame(self, frame_path):
         self.db.blendMode('multiply')
-        self.switchFill(self.color_scheme)
-        self.db.rect(0,0,self.width, self.height)
-        self.db.fill(.85)
-        self.db.oval(self.spotlight['x'], self.spotlight['y'], self.spotlight['d'], self.spotlight['d'])
+        if self.is_spotlight:
+            frame = self.db.ImageObject('assets/{}.png'.format(frame_path))
+            frame_size = self.db.imageSize(frame)[0]
+            sf = self.width / frame_size
+            frame.lanczosScaleTransform(sf)
+            self.db.image(frame, (0,0))
+        else:
+            self.switchFill(self.color_scheme)
+            self.db.rect(0,0,self.width, self.height)
+            self.db.fill(.85)
+            self.db.oval(self.spotlight['x'], self.spotlight['y'], self.spotlight['d'], self.spotlight['d'])
 
-    def render(self, frame_path, copy, cta, offer):
+    def renderPortrait(self, face, magic):
+        img = { 'path': face['path'], 'w': face['img']['w'], 'h': face['img']['h'] }
+        face = face['face'] 
+        self.db.fill(1,1,1,1)
+        self.db.rect(0,0,self.width, self.height)
+
+        im = self.db.ImageObject(img['path'])
+        im.photoEffectMono()
+        # mask = self.db.ImageObject('assets/mask_fade.png')
+        # im.blendWithMask(backgroundImage=None, maskImage=mask)
+
+        #scale the portrait to fit the spotlight
+        sf = self.spotlight['d'] / (face['w'] / img['w'] * self.db.imageSize(im)[0]) * magic 
+        im.lanczosScaleTransform(sf)
+
+        # shift the image placement by the difference between where the face starts and where the spotlight is located
+        im_x = self.spotlight['x'] - round(face['x'] / img['w'] * self.db.imageSize(im)[0]) # this line of code took me four hours
+        im_y = self.spotlight['y'] - ( img['h'] - face['h'] - face['y'] ) / img['h'] * self.db.imageSize(im)[1] # this line of code took me two hours
+        self.db.image(im, (im_x, im_y))
+
+    def render(self, frame_path, face, copy, cta, offer):
         self.copy = copy 
         self.offer = offer
         self.cta = cta 
@@ -126,6 +154,8 @@ class Offer:
             self.color_scheme = 'slate'
         self.db.newDrawing()
         self.db.size(self.width, self.height)
+        if self.is_spotlight:
+            self.renderPortrait(face, .65)
         self.renderFrame(frame_path)
         self.renderLogo()
 

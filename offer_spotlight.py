@@ -1,5 +1,4 @@
 from roundedRect import roundedRect
-from random import shuffle
 
 class OfferSpotlight:
     def __init__(self, db, template):
